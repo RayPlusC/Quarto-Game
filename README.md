@@ -25,7 +25,7 @@ This project recreates Quarto with:
 - **Logic-Based Mechanics**: Full implementation of the Quarto game rules.
 - **Real-Time Hover and Selection**: Visual feedback for mouse interactions.
 
-## Installation
+## Installation -- not tested
 ### Prerequisites
 - **C++ Compiler**: Ensure you have a C++17-compatible compiler (e.g., GCC, Clang, or MSVC).
 - **OLC PixelGameEngine**: This project uses the [OLC PixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine). Clone or download the framework.
