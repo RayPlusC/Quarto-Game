@@ -617,16 +617,6 @@ private:
 		return true; // Successfully added the game
 	}
 
-	/*
-	bool handleGames() {
-		for (auto& game : gamesBuffer) {
-			std::cout << game << std::endl;
-			pushGame(game);
-		}
-		return true;
-	}
-	*/
-
 public:
 	olc::Sprite* spr_logo = nullptr;
 	olc::Decal* dec_logo = nullptr;
@@ -686,7 +676,6 @@ public:
 	
 	// create instance of quarto game
 	QuartoGame* q;
-	//int activeTile = 0;
 	
 	// Calculate the maximum number of messages that can fit in the rectangle
 	int maxMessages = (int)(rectSize.y / 10); // Assuming each message is 10 pixels high
@@ -705,10 +694,6 @@ public:
 				pBoard.push_back(cell);
 			}
 		}
-		// Optional: Verify the board content
-		//for (int i = 0; i < pBoard.size(); i++) {
-		//	std::cout << "Tile: " << pBoard[i].sTile << ", Empty: " << pBoard[i].empty << std::endl;
-		//}
 	}
 
 	// Method to initialize tiles
@@ -736,8 +721,7 @@ public:
 		if (GetKey(olc::Key::DOWN).bHeld) vEye.y += 8.f * GetElapsedTime();
 		if (GetKey(olc::Key::RIGHT).bHeld) vEye.x += 8.f * GetElapsedTime();
 		if (GetKey(olc::Key::LEFT).bHeld) vEye.x -= 8.f * GetElapsedTime();
-		//if (GetMouse(olc::Mouse::LEFT).bHeld) vEye.z += 8.f * GetElapsedTime();
-		//if (GetMouse(olc::Mouse::RIGHT).bHeld) vEye.z -= 8.f * GetElapsedTime();
+
 		// Get the current mouse position
 		olc::vf2d vCurrentMousePos = GetMousePos();
 
@@ -806,7 +790,6 @@ public:
 		inGame = false;
 		start = true;
 
-		//board.LoadFromObjectFile("board.obj");
 		board.LoadFromObjectFile("board.obj");
 
 		std::string tileFileName = "";
@@ -818,7 +801,6 @@ public:
 
 		olc::GFX3D::ConfigureDisplay();
 
-		//renderer.SetProjection(270.0f, (float)ScreenHeight() / (float)ScreenWidth(), 0.1f, 1000.0f, 0.0f, 0.0f, ScreenWidth(), ScreenHeight());
 		renderer.SetProjection(100.0f, (float)ScreenHeight() / (float)ScreenWidth(), 0.1f, 1000.0f, 0.0f, 0.0f, ScreenWidth(), ScreenHeight());
 
 		fRotationX = 0.0f;
@@ -840,23 +822,11 @@ public:
 
 		// OLC logo for copyright
 		DrawDecal({ 0.0f, 0.0f }, dec_logo, { 0.25f, 0.25f });
-
-		//std::cout << "Connected Player IDs: " << std::endl;
-		//for (auto& player : mapPlayers) {
-		//	std::cout << "Player ID: " << player.first << " name: " << player.second.name << std::endl;
-		//}
-
 		
 		// Initial start of player before lobby
 		if (start) {
-			// Get players name
-			//DrawString(50, 50, "Enter your name:");
-			//name[0] = 'a';
-			//name[1] = 'b';
-			//mapPlayers[nPlayerID].name, name;
 			start = false;
 			inLobby = true;
-			//getName();
 		}
 		
 		// Player in lobby
@@ -886,9 +856,6 @@ public:
 
 				// Draw the game graphics and run the game logic
 				if (!q->isOver) {
-
-					//std::system("cls");
-					//std::cout << "player2 is ... " << q->player2 << std::endl;
 					CameraControls(fElapsedTime);
 					// clear both window and depth buffer
 					Clear(olc::DARK_BLUE);
@@ -902,6 +869,7 @@ public:
 					// prepare view transform
 					olc::GFX3D::vec3d vLookTarget = olc::GFX3D::Math::Vec_Add(vEye, vLookDir);
 					renderer.SetCamera(vEye, vLookTarget, vUp);
+
 					// prepare world transform and render board object
 					//olc::GFX3D::mat4x4 matWorld = olc::GFX3D::Math::Mat_MakeRotationZ(fRotationY);
 					matRotX = olc::GFX3D::Math::Mat_MakeRotationX(fRotationX);
@@ -923,7 +891,7 @@ public:
 
 					//renderer.Render(board.tris, olc::GFX3D::RENDER_TEXTURED);
 					renderer.Render(board.tris, olc::GFX3D::RENDER_FLAT);
-
+					
 					turn(situation);
 					float tFloat = tileSize;
 					float scaleX = tileSize / 1000.0f;
